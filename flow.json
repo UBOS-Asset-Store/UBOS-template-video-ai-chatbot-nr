@@ -1,26 +1,1122 @@
 [
     {
-        "id": "375d5c966656b361",
+        "id": "fb5738a77d24f8d4",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Settings",
         "disabled": false,
         "info": "",
         "env": []
     },
     {
-        "id": "39018e19286eeb44",
-        "type": "debug",
-        "z": "375d5c966656b361",
-        "name": "debug 1",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 160,
-        "y": 120,
+        "id": "e02fb78e674d1e65",
+        "type": "tab",
+        "label": "Bot",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "375d5c966656b361",
+        "type": "tab",
+        "label": "Links",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f168eeb2f9b6dc07",
+        "type": "mongodb",
+        "hostname": "${VIDEOAIDB-MONGO-HOST-NAME}",
+        "topology": "direct",
+        "connectOptions": "authSource=admin",
+        "port": "27017",
+        "db": "${VIDEOAIDB-MONGO-DB-NAME}",
+        "name": ""
+    },
+    {
+        "id": "43bfe33e6a378328",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "deleteAvatarById",
+        "func": "msg.collection = 'avatars';\nmsg.query = {\n    _id: objectid(msg.payload._id)\n}\ndelete msg.payload._id\nmsg.payload = {\n    $set: {\n        deleted: true\n    }\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "objectid",
+                "module": "objectid"
+            }
+        ],
+        "x": 350,
+        "y": 600,
+        "wires": [
+            [
+                "39802f352be3083e"
+            ]
+        ]
+    },
+    {
+        "id": "a298efd64088f5a0",
+        "type": "http in",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "url": "/deleteAvatar",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 128.119140625,
+        "y": 598.875,
+        "wires": [
+            [
+                "43bfe33e6a378328"
+            ]
+        ]
+    },
+    {
+        "id": "39802f352be3083e",
+        "type": "link call",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "links": [
+            "4858d251cc2afe5c"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 540,
+        "y": 600,
+        "wires": [
+            [
+                "6e7b6a07eb0c5dc0"
+            ]
+        ]
+    },
+    {
+        "id": "6e7b6a07eb0c5dc0",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 690,
+        "y": 600,
         "wires": []
+    },
+    {
+        "id": "b570594b2c92e3c0",
+        "type": "http in",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "url": "/uploadAvatar",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "7df0f57e8cdeae4e"
+            ]
+        ]
+    },
+    {
+        "id": "7df0f57e8cdeae4e",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "write file into buffer",
+        "func": "msg.buffer = msg.req.files[0].buffer\nmsg.path = `/data/storage/avatar/${msg.req.files[0].originalname}`\nmsg.payload = msg.req.files[0].buffer\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 60,
+        "wires": [
+            [
+                "a92395d2a0030b41"
+            ]
+        ]
+    },
+    {
+        "id": "a92395d2a0030b41",
+        "type": "file",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "filename": "path",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 540,
+        "y": 60,
+        "wires": [
+            [
+                "f7641d49ab6ba0e4"
+            ]
+        ]
+    },
+    {
+        "id": "aa1e0752d37c7b39",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1250,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f7641d49ab6ba0e4",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "create avatar object",
+        "func": "msg.collection = 'avatars';\n\nconst thumbnail_url = `${env.get(\"NODEREDURL\")}/downloadAvatar?avatar=${msg.req.files[0].originalname}`;\nlet avatar = { \n    createdAt: Date.now(),\n    presenter_id: objectid(), \n    thumbnail_url,\n    sourse: \"user\",\n    selected:false,\n    deleted: false };\nmsg.payload = avatar;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "objectid",
+                "module": "objectid"
+            }
+        ],
+        "x": 740,
+        "y": 60,
+        "wires": [
+            [
+                "96b5ed9783a4a440"
+            ]
+        ]
+    },
+    {
+        "id": "8ecbfc06bc9f14e6",
+        "type": "http in",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "url": "/saveCredentials",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 740,
+        "wires": [
+            [
+                "70fa563524bce094"
+            ]
+        ]
+    },
+    {
+        "id": "546fccd91bd0c1fe",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "response credentials",
+        "statusCode": "",
+        "headers": {},
+        "x": 700,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "56b615fdae6f5b7a",
+        "type": "http in",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "url": "/getCredentials",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 820,
+        "wires": [
+            [
+                "7b18f9005dfed6d8"
+            ]
+        ]
+    },
+    {
+        "id": "7b18f9005dfed6d8",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "sortCredentials",
+        "func": "msg.collection = 'credentials';\nmsg.payload = {};\nmsg.sort = { '_id': -1 };\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 820,
+        "wires": [
+            [
+                "4f4297eea101504b"
+            ]
+        ]
+    },
+    {
+        "id": "2947b0da37b1b5bf",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 790,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "4794739f0ca7f4d4",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "getLastCredential",
+        "func": "\nif (msg.payload.length > 0) {\n    msg.payload = msg.payload[0];\n} else {\n    msg.payload = {\n        \"_id\": '',\n        \"botName\": '',\n        \"botToken\": '',\n        \"openAIKey\": '',\n        \"elevenlabsKey\": '',\n        \"elevenlabsVoice\": '',\n        \"d_idKey\": '',\n        \"d_idAvatar\": '',\n        \"d_idActor\": '',\n        \"prompt\": '',\n        \"greetings\": ''\n    \n    }\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 820,
+        "wires": [
+            [
+                "2947b0da37b1b5bf"
+            ]
+        ]
+    },
+    {
+        "id": "4f4297eea101504b",
+        "type": "link call",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "links": [
+            "2ea4d611b4476b64"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 470,
+        "y": 820,
+        "wires": [
+            [
+                "4794739f0ca7f4d4"
+            ]
+        ]
+    },
+    {
+        "id": "54d3949016ccd055",
+        "type": "link call",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "links": [
+            "850f26bd11c45c81"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 500,
+        "y": 740,
+        "wires": [
+            [
+                "546fccd91bd0c1fe"
+            ]
+        ]
+    },
+    {
+        "id": "70fa563524bce094",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "setCollection",
+        "func": "msg.collection = 'credentials';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 740,
+        "wires": [
+            [
+                "54d3949016ccd055"
+            ]
+        ]
+    },
+    {
+        "id": "22ca0fc049e4fb3a",
+        "type": "complete",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "scope": [
+            "546fccd91bd0c1fe"
+        ],
+        "uncaught": false,
+        "x": 110,
+        "y": 900,
+        "wires": [
+            [
+                "57ec30d9da3742eb"
+            ]
+        ]
+    },
+    {
+        "id": "9e2c5ec10d494689",
+        "type": "inject",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 980,
+        "wires": [
+            [
+                "57ec30d9da3742eb"
+            ]
+        ]
+    },
+    {
+        "id": "57ec30d9da3742eb",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "getLastCredential",
+        "func": "msg.collection = 'credentials';\nmsg.payload = {};\nmsg.sort = { '_id': -1 };\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 940,
+        "wires": [
+            [
+                "b35713f8d22c2279"
+            ]
+        ]
+    },
+    {
+        "id": "f3f0cea32f89e7ca",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "saveCurentCredentialToGlobal",
+        "func": "const data = msg.payload[0];\n\nlet process_env = {\n    \"_id\": data._id,\n    \"botName\": data.botName ? data.botName.trim() : '',\n    \"botToken\": data.botToken ? data.botToken.trim() : '',\n    \"openAIKey\": data.openAIKey ? data.openAIKey.trim() : '',\n    \"elevenlabsKey\": data.elevenlabsKey ? data.elevenlabsKey.trim() : '',\n    \"elevenlabsVoice\": data.elevenlabsVoice ? data.elevenlabsVoice.trim() : '',\n    \"d_idKey\": data.d_idKey ? data.d_idKey.trim() : '',\n    \"d_idAvatar\": data.d_idAvatar ? data.d_idAvatar.trim() : '',\n    \"d_idActor\": data.d_idActor ? data.d_idActor.trim() : '',\n    \"prompt\": data.prompt ? data.prompt.trim() : '',\n    \"greetings\": data.greetings ? data.greetings.trim() : ''\n}\n\nglobal.set(\"botCredential\", process_env);\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b35713f8d22c2279",
+        "type": "link call",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "links": [
+            "2ea4d611b4476b64"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 490,
+        "y": 940,
+        "wires": [
+            [
+                "f3f0cea32f89e7ca"
+            ]
+        ]
+    },
+    {
+        "id": "96b5ed9783a4a440",
+        "type": "link call",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "links": [
+            "850f26bd11c45c81"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 920,
+        "y": 60,
+        "wires": [
+            [
+                "4376972e7209e2ec"
+            ]
+        ]
+    },
+    {
+        "id": "4376972e7209e2ec",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "return avatar",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 60,
+        "wires": [
+            [
+                "aa1e0752d37c7b39"
+            ]
+        ]
+    },
+    {
+        "id": "7fe216677821ddd5",
+        "type": "http in",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "url": "/getAllAvatars",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "6c7d66aa5c729d7b"
+            ]
+        ]
+    },
+    {
+        "id": "444098b8562acd7b",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "fetchActors",
+        "func": "msg.collection = 'avatars';\nconst BASE_URL = \"https://api.d-id.com/clips/presenters\";\nconst key = msg.payload.key;\n\nmsg.headers = {\n    \"accept\": \"application/json\",\n    \"Authorization\": `Bearer  ${key}`\n}\nmsg.method = \"GET\";\n\nmsg.url = `${BASE_URL}`;\n\n\nmsg.payload = {};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [
+            {
+                "var": "objectid",
+                "module": "objectid"
+            }
+        ],
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "000c2b03b0dfc19e"
+            ]
+        ]
+    },
+    {
+        "id": "5862302fb38e1d7a",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1550,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "000c2b03b0dfc19e",
+        "type": "http request",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 490,
+        "y": 360,
+        "wires": [
+            [
+                "a84dd7f56aa89c8d"
+            ]
+        ]
+    },
+    {
+        "id": "a84dd7f56aa89c8d",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "checkExistenceActorsInDb",
+        "func": "if (msg.statusCode == 200) {\n    let presenters=msg.payload.presenters;\n    let actors = presenters.map(presenter => {\n        // Витягуємо необхідні дані для створення об'єкта actor\n        let { presenter_id, thumbnail_url } = presenter;\n\n        // Створюємо об'єкт actor\n        return {\n            createdAt: Date.now(),\n            presenter_id,\n            thumbnail_url,\n            source: \"d_id\",\n            selected: false,\n            deleted: false\n        };\n    });\n    msg.actors = actors;\n    // Записуємо actors в msg.payload\n    msg.payload = {\n        presenter_id: { $in: msg.actors.map(actor => actor.presenter_id) }\n    }\n   return msg;\n} else {\n    msg.payload = {\n        type: 'message',\n        content: \"ERROR. Sorry, something went wrong 😞\",\n       \n    }\n\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 360,
+        "wires": [
+            [
+                "cd45a3915eb3e765"
+            ]
+        ]
+    },
+    {
+        "id": "df170f6c217565e6",
+        "type": "http in",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "url": "/getActors",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "444098b8562acd7b"
+            ]
+        ]
+    },
+    {
+        "id": "6c7d66aa5c729d7b",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "sort Avatars",
+        "func": "msg.collection = 'avatars';\nmsg.payload = {\n    deleted: false\n};\nmsg.sort = { 'createdAt': -1 };\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "25fbfab556855406"
+            ]
+        ]
+    },
+    {
+        "id": "e1a4a227148090a8",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 630,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "25fbfab556855406",
+        "type": "link call",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "links": [
+            "2ea4d611b4476b64"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 490,
+        "y": 440,
+        "wires": [
+            [
+                "e1a4a227148090a8"
+            ]
+        ]
+    },
+    {
+        "id": "e9ce8608103ec97e",
+        "type": "inject",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 500,
+        "wires": [
+            [
+                "6c7d66aa5c729d7b"
+            ]
+        ]
+    },
+    {
+        "id": "fd461c4712717168",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "checkExisting",
+        "func": "if (msg.payload.avatar !== \"\" && msg.payload.avatar !== \"null\" && msg.payload.avatar !== undefined && msg.payload.avatar !== \"undefined\"){\n    return [msg,null]\n}else{\n    return [null,msg]\n}\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "9e39125f5b5c48b0"
+            ],
+            [
+                "d07e739dc286aac7"
+            ]
+        ]
+    },
+    {
+        "id": "30de89d5e717300e",
+        "type": "http in",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "url": "/downloadAvatar",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "fd461c4712717168"
+            ]
+        ]
+    },
+    {
+        "id": "9e39125f5b5c48b0",
+        "type": "delay",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "milliseconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 465,
+        "y": 160,
+        "wires": [
+            [
+                "4ad2a750cf4f64b2"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "d07e739dc286aac7",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 510,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "4ad2a750cf4f64b2",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "initPath",
+        "func": "\nmsg.filename = `/data/storage/avatar/${msg.payload.avatar}`\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 160,
+        "wires": [
+            [
+                "d39f6c4f02a963e8"
+            ]
+        ]
+    },
+    {
+        "id": "d39f6c4f02a963e8",
+        "type": "file in",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "filename": "filename",
+        "filenameType": "msg",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 720,
+        "y": 160,
+        "wires": [
+            [
+                "752d3c0fb683bc3d"
+            ]
+        ]
+    },
+    {
+        "id": "752d3c0fb683bc3d",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "getFile",
+        "func": "msg.headers = {\n    'Content-Type': 'image/*',\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 160,
+        "wires": [
+            [
+                "ea4ce5a83de83e99"
+            ]
+        ]
+    },
+    {
+        "id": "ea4ce5a83de83e99",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1010,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "c68c75fac53ea377",
+        "type": "inject",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 280,
+        "wires": [
+            [
+                "582a6268302445b6"
+            ]
+        ]
+    },
+    {
+        "id": "582a6268302445b6",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "deleteAvatarsCollection",
+        "func": "msg.collection = 'avatars';\nmsg.payload= {};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 280,
+        "wires": [
+            [
+                "e7020a361461f03a"
+            ]
+        ]
+    },
+    {
+        "id": "e7020a361461f03a",
+        "type": "mongodb out",
+        "z": "fb5738a77d24f8d4",
+        "mongodb": "f168eeb2f9b6dc07",
+        "name": "",
+        "collection": "avatars",
+        "payonly": false,
+        "upsert": false,
+        "multi": false,
+        "operation": "delete",
+        "x": 790,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3c70fd4e37af8b4f",
+        "type": "inject",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 320,
+        "wires": [
+            [
+                "444098b8562acd7b"
+            ]
+        ]
+    },
+    {
+        "id": "11c43033edb6814f",
+        "type": "link call",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "links": [
+            "850f26bd11c45c81"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1240,
+        "y": 320,
+        "wires": [
+            [
+                "e12d1cc87a6fa9be"
+            ]
+        ]
+    },
+    {
+        "id": "e12d1cc87a6fa9be",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "return actors",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 320,
+        "wires": [
+            [
+                "5862302fb38e1d7a"
+            ]
+        ]
+    },
+    {
+        "id": "cd45a3915eb3e765",
+        "type": "link call",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "links": [
+            "2ea4d611b4476b64"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 930,
+        "y": 360,
+        "wires": [
+            [
+                "9495f99fe09e751a"
+            ]
+        ]
+    },
+    {
+        "id": "9495f99fe09e751a",
+        "type": "function",
+        "z": "fb5738a77d24f8d4",
+        "name": "condition",
+        "func": "if (msg.payload.length > 0) {\n    msg.statusCode = 200;\n    return [null, msg]\n} else {\n    msg.payload = msg.actors\n    return [msg, null]\n}",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 360,
+        "wires": [
+            [
+                "11c43033edb6814f"
+            ],
+            [
+                "f1e2d789a1a7b92f"
+            ]
+        ]
+    },
+    {
+        "id": "f1e2d789a1a7b92f",
+        "type": "http response",
+        "z": "fb5738a77d24f8d4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1230,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2ea4d611b4476b64",
+        "type": "link in",
+        "z": "375d5c966656b361",
+        "name": "findDB",
+        "links": [],
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "ccfe58d6c0c35bad"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "2e067bd1492a1a46",
+        "type": "link out",
+        "z": "375d5c966656b361",
+        "name": "link out 3",
+        "mode": "return",
+        "links": [],
+        "x": 415,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "850f26bd11c45c81",
+        "type": "link in",
+        "z": "375d5c966656b361",
+        "name": "insertDB",
+        "links": [],
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "ad76acd06af34364",
+                "7a3aef4bde311dfa"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "7a3aef4bde311dfa",
+        "type": "link out",
+        "z": "375d5c966656b361",
+        "name": "link out 4",
+        "mode": "return",
+        "links": [],
+        "x": 235,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4858d251cc2afe5c",
+        "type": "link in",
+        "z": "375d5c966656b361",
+        "name": "updateDB",
+        "links": [],
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "33bdd240470ffc2b",
+                "ba42b3f1e81a19d9"
+            ]
+        ],
+        "l": true
+    },
+    {
+        "id": "ba42b3f1e81a19d9",
+        "type": "link out",
+        "z": "375d5c966656b361",
+        "name": "link out 5",
+        "mode": "return",
+        "links": [],
+        "x": 235,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "ad76acd06af34364",
+        "type": "mongodb out",
+        "z": "375d5c966656b361",
+        "mongodb": "f168eeb2f9b6dc07",
+        "name": "MongoDB",
+        "collection": "",
+        "payonly": true,
+        "upsert": false,
+        "multi": false,
+        "operation": "insert",
+        "x": 290,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "33bdd240470ffc2b",
+        "type": "mongodb out",
+        "z": "375d5c966656b361",
+        "mongodb": "f168eeb2f9b6dc07",
+        "name": "MongoDB",
+        "collection": "",
+        "payonly": true,
+        "upsert": false,
+        "multi": true,
+        "operation": "update",
+        "x": 290,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ccfe58d6c0c35bad",
+        "type": "mongodb in",
+        "z": "375d5c966656b361",
+        "mongodb": "f168eeb2f9b6dc07",
+        "name": "MongoDB",
+        "collection": "",
+        "operation": "find",
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "2e067bd1492a1a46"
+            ]
+        ]
     }
 ]

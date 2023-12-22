@@ -1,1 +1,7 @@
-{}
+{
+    "f168eeb2f9b6dc07": {
+        "user": "${VIDEOAIDB-MONGO-USER-NAME}",
+        "password": "${VIDEOAIDB-MONGO-PASSWORD}"
+    },
+    "000c2b03b0dfc19e": {}
+}
