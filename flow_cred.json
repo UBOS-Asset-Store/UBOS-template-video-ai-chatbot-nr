@@ -3,5 +3,13 @@
         "user": "${VIDEOAIDB-MONGO-USER-NAME}",
         "password": "${VIDEOAIDB-MONGO-PASSWORD}"
     },
-    "000c2b03b0dfc19e": {}
+    "000c2b03b0dfc19e": {},
+    "1ddc99a249e7e0da": {
+        "token": "{global.get('botCredential').botToken}"
+    },
+    "90b6dc660cf7fcf4": {},
+    "3bd33f5fa8c96173": {},
+    "d5fb326a99a8ce0f": {},
+    "ba5d465b29f3fa2d": {},
+    "1be2983f434c2532": {}
 }
