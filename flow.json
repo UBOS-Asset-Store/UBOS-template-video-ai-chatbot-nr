@@ -108,7 +108,7 @@
             "35382b479daaa177"
         ],
         "x": 14,
-        "y": -1,
+        "y": 19,
         "w": 1632,
         "h": 502
     },
@@ -165,7 +165,7 @@
             }
         ],
         "x": 370,
-        "y": 400,
+        "y": 420,
         "wires": [
             [
                 "39802f352be3083e"
@@ -183,7 +183,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 148.119140625,
-        "y": 398.875,
+        "y": 418.875,
         "wires": [
             [
                 "43bfe33e6a378328"
@@ -202,7 +202,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 560,
-        "y": 400,
+        "y": 420,
         "wires": [
             [
                 "6e7b6a07eb0c5dc0"
@@ -218,7 +218,7 @@
         "statusCode": "",
         "headers": {},
         "x": 710,
-        "y": 400,
+        "y": 420,
         "wires": []
     },
     {
@@ -232,7 +232,7 @@
         "upload": true,
         "swaggerDoc": "",
         "x": 150,
-        "y": 40,
+        "y": 60,
         "wires": [
             [
                 "7df0f57e8cdeae4e"
@@ -252,7 +252,7 @@
         "finalize": "",
         "libs": [],
         "x": 370,
-        "y": 40,
+        "y": 60,
         "wires": [
             [
                 "a92395d2a0030b41"
@@ -272,7 +272,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 560,
-        "y": 40,
+        "y": 60,
         "wires": [
             [
                 "f7641d49ab6ba0e4"
@@ -288,7 +288,7 @@
         "statusCode": "",
         "headers": {},
         "x": 1270,
-        "y": 40,
+        "y": 60,
         "wires": []
     },
     {
@@ -297,7 +297,7 @@
         "z": "fb5738a77d24f8d4",
         "g": "7a97228176a3408a",
         "name": "create avatar object",
-        "func": "msg.collection = 'avatars';\n\nconst thumbnail_url = `${env.get(\"NODEREDURL\")}/downloadAvatar?avatar=${msg.req.files[0].originalname}`;\nlet avatar = { \n    createdAt: Date.now(),\n    presenter_id: objectid(), \n    thumbnail_url,\n    sourse: \"user\",\n    selected:false,\n    deleted: false };\nmsg.payload = avatar;\n\n\nreturn msg;",
+        "func": "msg.collection = 'avatars';\n\nconst thumbnail_url = `${env.get(\"NODEREDURL\")}/downloadAvatar?avatar=${msg.req.files[0].originalname}`;\nlet avatar = { \n    createdAt: Date.now(),\n    presenter_id: objectid(), \n    thumbnail_url,\n    source: \"user\",\n    selected:false,\n    deleted: false };\nmsg.payload = avatar;\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -309,7 +309,7 @@
             }
         ],
         "x": 760,
-        "y": 40,
+        "y": 60,
         "wires": [
             [
                 "96b5ed9783a4a440"
@@ -591,7 +591,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 940,
-        "y": 40,
+        "y": 60,
         "wires": [
             [
                 "4376972e7209e2ec"
@@ -611,7 +611,7 @@
         "finalize": "",
         "libs": [],
         "x": 1110,
-        "y": 40,
+        "y": 60,
         "wires": [
             [
                 "aa1e0752d37c7b39"
@@ -629,7 +629,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 150,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "6c7d66aa5c729d7b"
@@ -654,7 +654,7 @@
             }
         ],
         "x": 330,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "000c2b03b0dfc19e"
@@ -670,7 +670,7 @@
         "statusCode": "",
         "headers": {},
         "x": 1570,
-        "y": 180,
+        "y": 200,
         "wires": []
     },
     {
@@ -691,7 +691,7 @@
         "senderr": false,
         "headers": [],
         "x": 510,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "a84dd7f56aa89c8d"
@@ -711,7 +711,7 @@
         "finalize": "",
         "libs": [],
         "x": 740,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "cd45a3915eb3e765"
@@ -729,7 +729,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 140,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "444098b8562acd7b"
@@ -749,7 +749,7 @@
         "finalize": "",
         "libs": [],
         "x": 350,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "25fbfab556855406"
@@ -765,7 +765,7 @@
         "statusCode": "",
         "headers": {},
         "x": 870,
-        "y": 280,
+        "y": 300,
         "wires": []
     },
     {
@@ -780,7 +780,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 510,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "122575676cab76ca"
@@ -810,7 +810,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 340,
+        "y": 360,
         "wires": [
             [
                 "6c7d66aa5c729d7b"
@@ -830,7 +830,7 @@
         "finalize": "",
         "libs": [],
         "x": 380,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
                 "9e39125f5b5c48b0"
@@ -851,7 +851,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 160,
-        "y": 120,
+        "y": 140,
         "wires": [
             [
                 "fd461c4712717168"
@@ -877,7 +877,7 @@
         "allowrate": false,
         "outputs": 1,
         "x": 485,
-        "y": 100,
+        "y": 120,
         "wires": [
             [
                 "4ad2a750cf4f64b2"
@@ -894,7 +894,7 @@
         "statusCode": "",
         "headers": {},
         "x": 530,
-        "y": 160,
+        "y": 180,
         "wires": []
     },
     {
@@ -910,7 +910,7 @@
         "finalize": "",
         "libs": [],
         "x": 580,
-        "y": 100,
+        "y": 120,
         "wires": [
             [
                 "d39f6c4f02a963e8"
@@ -931,7 +931,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 740,
-        "y": 100,
+        "y": 120,
         "wires": [
             [
                 "752d3c0fb683bc3d"
@@ -951,7 +951,7 @@
         "finalize": "",
         "libs": [],
         "x": 890,
-        "y": 100,
+        "y": 120,
         "wires": [
             [
                 "ea4ce5a83de83e99"
@@ -967,7 +967,7 @@
         "statusCode": "",
         "headers": {},
         "x": 1030,
-        "y": 100,
+        "y": 120,
         "wires": []
     },
     {
@@ -1056,7 +1056,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 120,
-        "y": 180,
+        "y": 200,
         "wires": [
             [
                 "444098b8562acd7b"
@@ -1075,7 +1075,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 1260,
-        "y": 180,
+        "y": 200,
         "wires": [
             [
                 "e12d1cc87a6fa9be"
@@ -1095,7 +1095,7 @@
         "finalize": "",
         "libs": [],
         "x": 1410,
-        "y": 180,
+        "y": 200,
         "wires": [
             [
                 "5862302fb38e1d7a"
@@ -1114,7 +1114,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 950,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "9495f99fe09e751a"
@@ -1134,7 +1134,7 @@
         "finalize": "",
         "libs": [],
         "x": 1100,
-        "y": 220,
+        "y": 240,
         "wires": [
             [
                 "11c43033edb6814f"
@@ -1153,7 +1153,7 @@
         "statusCode": "",
         "headers": {},
         "x": 1250,
-        "y": 240,
+        "y": 260,
         "wires": []
     },
     {
@@ -1167,7 +1167,7 @@
         "upload": false,
         "swaggerDoc": "",
         "x": 150,
-        "y": 460,
+        "y": 480,
         "wires": [
             [
                 "44d601641c19f080"
@@ -1183,7 +1183,7 @@
         "statusCode": "",
         "headers": {},
         "x": 1070,
-        "y": 460,
+        "y": 480,
         "wires": []
     },
     {
@@ -1204,7 +1204,7 @@
             }
         ],
         "x": 360,
-        "y": 460,
+        "y": 480,
         "wires": [
             [
                 "03d1b6dbc51ce0d7"
@@ -1223,7 +1223,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 540,
-        "y": 460,
+        "y": 480,
         "wires": [
             [
                 "93ace29d77f702db"
@@ -1243,7 +1243,7 @@
         "finalize": "",
         "libs": [],
         "x": 690,
-        "y": 280,
+        "y": 300,
         "wires": [
             [
                 "e1a4a227148090a8",
@@ -1266,7 +1266,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 860,
-        "y": 340,
+        "y": 360,
         "wires": []
     },
     {
@@ -1287,7 +1287,7 @@
             }
         ],
         "x": 730,
-        "y": 460,
+        "y": 480,
         "wires": [
             [
                 "35382b479daaa177"
@@ -1306,7 +1306,7 @@
         "linkType": "static",
         "timeout": "30",
         "x": 920,
-        "y": 460,
+        "y": 480,
         "wires": [
             [
                 "ed6187075b52d3e1"
@@ -1400,8 +1400,8 @@
         "bot": "1ddc99a249e7e0da",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 595,
-        "y": 247,
+        "x": 600,
+        "y": 240,
         "wires": [
             [
                 "e2e1de0d5af2a353"
@@ -1626,26 +1626,6 @@
         ]
     },
     {
-        "id": "66a9410e197cb650",
-        "type": "function",
-        "z": "e02fb78e674d1e65",
-        "name": "userCommunicationMethod",
-        "func": "switch (msg.userData.communicationMethod) {\n    case 'TEXT':\n        msg.payload = {\n            type: 'message',\n            content: msg.payload.choices[0].message.content,\n            chatId: msg.userData.chatId\n        }\n\n        return [msg, null];\n    case 'VOICE':\n\n        return [null, msg];\n    case 'VIDEO':\n\n        return [null, msg];\n\n    default:\n\n        return [msg, null];\n}\n",
-        "outputs": 4,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1260,
-        "y": 800,
-        "wires": [
-            [],
-            [],
-            [],
-            []
-        ]
-    },
-    {
         "id": "494f733c48552c0e",
         "type": "telegram sender",
         "z": "e02fb78e674d1e65",
@@ -1692,8 +1672,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1500,
-        "y": 540,
+        "x": 460,
+        "y": 680,
         "wires": [
             [
                 "90b6dc660cf7fcf4"
@@ -1708,8 +1688,8 @@
         "bot": "1ddc99a249e7e0da",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 2000,
-        "y": 540,
+        "x": 960,
+        "y": 680,
         "wires": [
             []
         ]
@@ -1730,8 +1710,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 1670,
-        "y": 540,
+        "x": 630,
+        "y": 680,
         "wires": [
             [
                 "d70b63808f185072"
@@ -1749,8 +1729,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1830,
-        "y": 540,
+        "x": 790,
+        "y": 680,
         "wires": [
             [
                 "d25239f8d1130886"
@@ -1833,8 +1813,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1270,
-        "y": 680,
+        "x": 230,
+        "y": 820,
         "wires": []
     },
     {
@@ -1905,18 +1885,18 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "generateVideoWithUserAvatar",
-        "func": "const avatar = global.get('botCredential').d_idAvatar;\nlet BASE_URL = \"https://api.d-id.com/talks\";\nconst content = msg.response[0].message.content;\nconst key = global.get('botCredential').d_idKey;\nconst voice = global.get('botCredential').elevenlabsVoice;\n\nmsg.method = 'POST';\nmsg.headers = {\n    'Content-Type': 'application/json',\n    \"accept\": \"application/json\",\n    \"Authorization\": `Basic ${key}`\n};\nmsg.url = `${BASE_URL}`;\nmsg.payload = {\n    script: {\n        type: 'text',\n        subtitles: 'false',\n        provider: { type: 'elevenlabs', voice_id: voice },\n        ssml: 'false',\n        input: content\n    },\n    config: { fluent: 'false', pad_audio: '0.0' },\n    source_url: avatar\n}\n\nreturn msg;",
+        "func": "const BASE_URL = \"https://api.d-id.com/talks\";\nconst content = msg.response[0].message.content;\nconst key = global.get('botCredential').d_idKey;\nconst voice = global.get('botCredential').elevenlabsVoice;\nconst avatar = \"https://create-images-results.d-id.com/auth0%7C64ca6de76577cde55e298d46/upl_PognRAQJIfSk1dM0t7EGL/image.jpeg\";\n\nmsg.method = 'POST';\nmsg.headers = {\n    'Content-Type': 'application/json',\n    \"accept\": \"application/json\",\n    \"Authorization\": `Basic ${key}`\n};\nmsg.url = `${BASE_URL}`;\nmsg.payload = {\n    \"script\": {\n        \"type\": \"text\",\n        \"provider\": { \"type\": 'elevenlabs', \"voice_id\": voice },\n        \"input\": content\n    },\n    \"config\": { \"result_format\": 'mp4', \"stitch\": true },\n    \"source_url\": avatar,\n    \"user_data\": JSON.stringify(msg.telegram.chatId),\n    \"webhook\": `${env.get(\"NODEREDURL\")}/webhook`,\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1990,
-        "y": 600,
+        "x": 950,
+        "y": 740,
         "wires": [
             [
-                "ba5d465b29f3fa2d",
-                "73e9d2b90c653da4"
+                "73e9d2b90c653da4",
+                "ba5d465b29f3fa2d"
             ]
         ]
     },
@@ -1928,8 +1908,8 @@
         "bot": "1ddc99a249e7e0da",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 2540,
-        "y": 600,
+        "x": 1500,
+        "y": 740,
         "wires": [
             []
         ]
@@ -1940,7 +1920,7 @@
         "z": "e02fb78e674d1e65",
         "name": "",
         "method": "use",
-        "ret": "bin",
+        "ret": "obj",
         "paytoqs": "ignore",
         "url": "",
         "tls": "",
@@ -1950,8 +1930,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 2210,
-        "y": 600,
+        "x": 1170,
+        "y": 740,
         "wires": [
             [
                 "37cda1813d2152f7",
@@ -1970,8 +1950,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2370,
-        "y": 600,
+        "x": 1330,
+        "y": 740,
         "wires": [
             [
                 "b9e11a67a003a7f1"
@@ -1989,8 +1969,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1420,
-        "y": 620,
+        "x": 380,
+        "y": 760,
         "wires": [
             [
                 "efb05de0f2937f9c"
@@ -2007,11 +1987,12 @@
         ],
         "linkType": "static",
         "timeout": "30",
-        "x": 1570,
-        "y": 620,
+        "x": 530,
+        "y": 760,
         "wires": [
             [
-                "3c25ab7e2f53a0b0"
+                "3c25ab7e2f53a0b0",
+                "2c0534bda7155768"
             ]
         ]
     },
@@ -2020,14 +2001,14 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "generateVideoWithActor",
-        "func": "const avatar = global.get('botCredential').d_idAvatar;\nlet BASE_URL = \"https://api.d-id.com/clips\";\nconst content = msg.response[0].message.content;\n\nconst key = global.get('botCredential').d_idKey;\nconst voice = global.get('botCredential').elevenlabsVoice;\n\nmsg.method = 'POST';\nmsg.headers = {\n    \"content-type\": 'application/json',\n    \"accept\": \"application/json\",\n    \"Authorization\": `Basic ${key}`\n};\n\nmsg.payload = {\n    \"script\": {\n        \"type\": 'text',\n        \"provider\": { \"type\": 'elevenlabs', \"voice_id\": voice },\n        \"input\": content\n    },\n    \"config\": { \"result_format\": 'mp4' },\n    \"presenter_id\": avatar,\n    \"webhook\": `${env.get(\"NODEREDURL\")}/webhook`\n}\nmsg.url = `${BASE_URL}`;\nreturn msg;",
+        "func": "const BASE_URL = \"https://api.d-id.com/clips\";\nconst content = msg.response[0].message.content;\nconst avatar = global.get('botCredential').d_idAvatar;\nconst key = global.get('botCredential').d_idKey;\nconst voice = global.get('botCredential').elevenlabsVoice;\n\nmsg.method = 'POST';\nmsg.headers = {\n    \"content-type\": 'application/json',\n    \"accept\": \"application/json\",\n    \"Authorization\": `Basic ${key}`\n};\n\nmsg.payload = {\n    \"script\": {\n        \"type\": 'text',\n        \"provider\": { \"type\": 'elevenlabs', \"voice_id\": voice },\n        \"input\": content\n    },\n    \"config\": { \"result_format\": 'mp4' },\n    \"presenter_id\": avatar,\n    \"user_data\": JSON.stringify(msg.telegram.chatId),\n    \"webhook\": `${env.get(\"NODEREDURL\")}/webhook`,\n    \"background\": {\n        \"color\": \"#fff\"\n    }\n}\nmsg.url = `${BASE_URL}`;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1970,
-        "y": 660,
+        "x": 930,
+        "y": 800,
         "wires": [
             [
                 "f626f326a1a94233",
@@ -2043,13 +2024,10 @@
         "bot": "1ddc99a249e7e0da",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 2540,
-        "y": 660,
+        "x": 1500,
+        "y": 800,
         "wires": [
-            [
-                "1be2983f434c2532",
-                "6ab013c176aec33d"
-            ]
+            []
         ]
     },
     {
@@ -2068,8 +2046,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 2210,
-        "y": 660,
+        "x": 1170,
+        "y": 800,
         "wires": [
             [
                 "553f27f322d99414",
@@ -2088,8 +2066,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2370,
-        "y": 660,
+        "x": 1330,
+        "y": 800,
         "wires": [
             [
                 "a7dd2d5ef82e95ee"
@@ -2118,15 +2096,14 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1750,
-        "y": 620,
+        "x": 710,
+        "y": 760,
         "wires": [
             [
                 "1774755670398181"
             ],
             [
-                "abc581cd9b9b870f",
-                "3be67730cd04b819"
+                "abc581cd9b9b870f"
             ]
         ]
     },
@@ -2233,8 +2210,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 1130,
-        "y": 540,
+        "x": 90,
+        "y": 680,
         "wires": [
             [
                 "ef1c1d5552df1694",
@@ -2263,8 +2240,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2230,
-        "y": 540,
+        "x": 1190,
+        "y": 680,
         "wires": []
     },
     {
@@ -2280,14 +2257,15 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2290,
-        "y": 720,
+        "x": 1170,
+        "y": 860,
         "wires": []
     },
     {
         "id": "8bf2a0d6c48175ac",
         "type": "debug",
         "z": "e02fb78e674d1e65",
+        "d": true,
         "name": "from request",
         "active": true,
         "tosidebar": true,
@@ -2297,8 +2275,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2470,
-        "y": 540,
+        "x": 1430,
+        "y": 680,
         "wires": []
     },
     {
@@ -2312,8 +2290,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1320,
-        "y": 480,
+        "x": 280,
+        "y": 620,
         "wires": [
             [
                 "e37323d9038eea78"
@@ -2328,8 +2306,8 @@
         "bot": "1ddc99a249e7e0da",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 1540,
-        "y": 480,
+        "x": 500,
+        "y": 620,
         "wires": [
             []
         ]
@@ -2338,14 +2316,13 @@
         "id": "2b1c160de187a01c",
         "type": "http in",
         "z": "e02fb78e674d1e65",
-        "d": true,
         "name": "",
         "url": "/webhook",
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
-        "x": 1840,
-        "y": 920,
+        "x": 100,
+        "y": 960,
         "wires": [
             [
                 "b3d3be18f0522397",
@@ -2361,7 +2338,7 @@
         "name": "ok",
         "statusCode": "201",
         "headers": {},
-        "x": 2170,
+        "x": 270,
         "y": 920,
         "wires": []
     },
@@ -2378,26 +2355,31 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1960,
-        "y": 860,
+        "x": 120,
+        "y": 1020,
         "wires": []
     },
     {
         "id": "d41469a92ec47721",
         "type": "function",
         "z": "e02fb78e674d1e65",
-        "name": "function 1",
-        "func": "if (msg.payload.status == 'done') {\n   \n    msg.payload = {\n        type: 'video',\n        content: msg.payload.result_url,\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n} else {\n    msg.payload = {\n        type: 'message',\n        content: \"ERROR. Sorry, something went wrong 😞\",\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n}",
-        "outputs": 1,
+        "name": "sendVideoToTelegram",
+        "func": "if (msg.payload.status == 'done') {\n    msg.url = `https://api.telegram.org/bot${global.get('botCredential').botToken}/sendVideo`;\n    msg.headers = {\n        \"content-type\": \"application/json\"\n    }\n    msg.payload = {\n        video: `${msg.payload.result_url}/videos?filename=videoresponse&bred=s`,\n        chat_id: JSON.parse(msg.payload.user_data)\n    }\n\n    return [msg, null]\n} else {\n    msg.payload = {\n        type: 'message',\n        content: \"ERROR. Sorry, something went wrong 😞\",\n        chatId: JSON.parse(msg.payload.user_data)\n    }\n\n    return [null, msg]\n}\n",
+        "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 2020,
-        "y": 980,
+        "x": 340,
+        "y": 960,
         "wires": [
             [
-                "63376bc55053557b"
+                "68868b7d2c3dd751",
+                "6ab013c176aec33d"
+            ],
+            [
+                "63376bc55053557b",
+                "6ab013c176aec33d"
             ]
         ]
     },
@@ -2409,179 +2391,17 @@
         "bot": "1ddc99a249e7e0da",
         "haserroroutput": false,
         "outputs": 1,
-        "x": 2220,
+        "x": 600,
         "y": 980,
         "wires": [
             []
         ]
-    },
-    {
-        "id": "132ad556f38adcac",
-        "type": "inject",
-        "z": "e02fb78e674d1e65",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 1840,
-        "y": 980,
-        "wires": [
-            [
-                "d41469a92ec47721"
-            ]
-        ]
-    },
-    {
-        "id": "e60304803085bb6f",
-        "type": "http response",
-        "z": "e02fb78e674d1e65",
-        "name": "ok",
-        "statusCode": "201",
-        "headers": {},
-        "x": 3050,
-        "y": 660,
-        "wires": []
-    },
-    {
-        "id": "e680082b3039c692",
-        "type": "debug",
-        "z": "e02fb78e674d1e65",
-        "name": "debug 8",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2840,
-        "y": 600,
-        "wires": []
-    },
-    {
-        "id": "5495f26174b765a4",
-        "type": "function",
-        "z": "e02fb78e674d1e65",
-        "name": "function 2",
-        "func": "if (msg.payload.status == 'done') {\n   \n    msg.payload = {\n        type: 'video',\n        content: msg.payload.result_url,\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n} else {\n    msg.payload = {\n        type: 'message',\n        content: \"ERROR. Sorry, something went wrong 😞\",\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n}",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2900,
-        "y": 720,
-        "wires": [
-            [
-                "efb6f85082cdede6",
-                "0aa0781ba3d98007"
-            ]
-        ]
-    },
-    {
-        "id": "efb6f85082cdede6",
-        "type": "telegram sender",
-        "z": "e02fb78e674d1e65",
-        "name": "",
-        "bot": "1ddc99a249e7e0da",
-        "haserroroutput": false,
-        "outputs": 1,
-        "x": 3100,
-        "y": 720,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "98af589efe77889a",
-        "type": "inject",
-        "z": "e02fb78e674d1e65",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 2720,
-        "y": 720,
-        "wires": [
-            [
-                "5495f26174b765a4"
-            ]
-        ]
-    },
-    {
-        "id": "1be2983f434c2532",
-        "type": "http request",
-        "z": "e02fb78e674d1e65",
-        "name": "",
-        "method": "POST",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "https://videoainr-65818dca387fb71100000125.ubos.tech/webhook",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 2770,
-        "y": 660,
-        "wires": [
-            [
-                "e60304803085bb6f",
-                "e680082b3039c692",
-                "5495f26174b765a4"
-            ]
-        ]
-    },
-    {
-        "id": "0aa0781ba3d98007",
-        "type": "debug",
-        "z": "e02fb78e674d1e65",
-        "name": "debug 9",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2980,
-        "y": 780,
-        "wires": []
     },
     {
         "id": "6ab013c176aec33d",
         "type": "debug",
         "z": "e02fb78e674d1e65",
+        "d": true,
         "name": "debug 10",
         "active": true,
         "tosidebar": true,
@@ -2591,16 +2411,40 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2620,
-        "y": 780,
+        "x": 360,
+        "y": 1020,
         "wires": []
     },
     {
-        "id": "3be67730cd04b819",
+        "id": "68868b7d2c3dd751",
+        "type": "http request",
+        "z": "e02fb78e674d1e65",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 590,
+        "y": 940,
+        "wires": [
+            [
+                "de82e78747a706ec"
+            ]
+        ]
+    },
+    {
+        "id": "de82e78747a706ec",
         "type": "debug",
         "z": "e02fb78e674d1e65",
         "d": true,
-        "name": "debug 11",
+        "name": "debug 12",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -2609,12 +2453,68 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1920,
-        "y": 720,
+        "x": 740,
+        "y": 940,
         "wires": []
     },
     {
-        "id": "f683a395ac98aca0",
+        "id": "2c0534bda7155768",
+        "type": "debug",
+        "z": "e02fb78e674d1e65",
+        "d": true,
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "2db21c974a62c557",
+        "type": "function",
+        "z": "e02fb78e674d1e65",
+        "name": "write file into buffer",
+        "func": "\nmsg.fromApp = msg.payload\nmsg.url = msg.payload.result_url\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1180,
+        "wires": [
+            [
+                "2532ee5e6a275b83",
+                "24336a818102aa5d"
+            ]
+        ]
+    },
+    {
+        "id": "9efa72156e56b3f6",
+        "type": "http in",
+        "z": "e02fb78e674d1e65",
+        "name": "",
+        "url": "/webhookTalks",
+        "method": "post",
+        "upload": true,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 1180,
+        "wires": [
+            [
+                "2db21c974a62c557",
+                "52db8779346dfc56"
+            ]
+        ]
+    },
+    {
+        "id": "4a07dfe9b7167c51",
         "type": "inject",
         "z": "e02fb78e674d1e65",
         "name": "",
@@ -2634,13 +2534,194 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 2640,
-        "y": 500,
+        "x": 120,
+        "y": 1220,
         "wires": [
             [
-                "1be2983f434c2532"
+                "2db21c974a62c557"
             ]
         ]
+    },
+    {
+        "id": "52db8779346dfc56",
+        "type": "debug",
+        "z": "e02fb78e674d1e65",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 260,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "2532ee5e6a275b83",
+        "type": "debug",
+        "z": "e02fb78e674d1e65",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "24336a818102aa5d",
+        "type": "http request",
+        "z": "e02fb78e674d1e65",
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 530,
+        "y": 1180,
+        "wires": [
+            [
+                "1b9537ef7ff5760d",
+                "22c85d8b129803b5"
+            ]
+        ]
+    },
+    {
+        "id": "1b9537ef7ff5760d",
+        "type": "function",
+        "z": "e02fb78e674d1e65",
+        "name": "function 1",
+        "func": "\nmsg.payload = {\n    content: msg.payload,\n    type:\"video_note\",\n    chatId: msg.fromApp.user_data\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1180,
+        "wires": [
+            [
+                "74e00fa7086484e0",
+                "39a86dfd752ee1c1"
+            ]
+        ]
+    },
+    {
+        "id": "74e00fa7086484e0",
+        "type": "telegram sender",
+        "z": "e02fb78e674d1e65",
+        "name": "",
+        "bot": "1ddc99a249e7e0da",
+        "haserroroutput": true,
+        "outputs": 2,
+        "x": 880,
+        "y": 1180,
+        "wires": [
+            [
+                "0f7c870cbc1b40d1"
+            ],
+            [
+                "0f7c870cbc1b40d1"
+            ]
+        ]
+    },
+    {
+        "id": "0f7c870cbc1b40d1",
+        "type": "debug",
+        "z": "e02fb78e674d1e65",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 1180,
+        "wires": []
+    },
+    {
+        "id": "22c85d8b129803b5",
+        "type": "debug",
+        "z": "e02fb78e674d1e65",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "39a86dfd752ee1c1",
+        "type": "debug",
+        "z": "e02fb78e674d1e65",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "591a602877cbcdb5",
+        "type": "catch",
+        "z": "e02fb78e674d1e65",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 120,
+        "y": 1380,
+        "wires": [
+            [
+                "20a5dd037b9c1e4d"
+            ]
+        ]
+    },
+    {
+        "id": "20a5dd037b9c1e4d",
+        "type": "debug",
+        "z": "e02fb78e674d1e65",
+        "name": "msg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 310,
+        "y": 1380,
+        "wires": []
     },
     {
         "id": "2ea4d611b4476b64",
