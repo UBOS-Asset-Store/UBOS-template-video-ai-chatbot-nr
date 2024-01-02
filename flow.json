@@ -1092,7 +1092,7 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "switchCommunicationMethod",
-        "func": "msg.telegram = msg.payload;\nmsg.communicationMethod = null;\n\nlet content = null;\nlet message = null;\nswitch (msg.payload.content || msg.originalMessage.text) {\n    case '/text': {\n        \n        msg.communicationMethod = 'TEXT';\n        content = '⌨️ Switched to text mode';\n       break;\n    }\n    case '/voice': {\n        \n        msg.communicationMethod = 'VOICE';\n        content = '🎤 Switched to voice mode';\n        break;\n    }\n    case '/video': {\n        \n        msg.communicationMethod = 'VIDEO';\n        content = '🎬 Switched to video mode';\n        break;\n    }\n    default:\n        content = 'The communication method is not selected!';\n        break;\n}\n\nmsg.payload = {\n    type: 'message',\n    content: content,\n    chatId: msg.telegram.chatId,\n}\n\nreturn msg;\n",
+        "func": "msg.telegram = msg.payload;\nmsg.communicationMethod = null;\n\nlet content = null;\nlet message = null;\nswitch (msg.payload.content || msg.originalMessage.text) {\n    case '/text': {\n        \n        msg.communicationMethod = 'TEXT';\n        content = '⌨️ Switched to text mode';\n       break;\n    }\n    case '/voice': {\n        \n        msg.communicationMethod = 'VOICE';\n        content = '🎤 Switched to voice mode';\n        break;\n    }\n    case '/video': {\n        \n        msg.communicationMethod = 'VIDEO';\n        content = '🎬 Switched to video mode';\n        break;\n    }\n    default:\n        content = 'The communication method is not selected!';\n        break;\n}\n\nmsg.payload = {\n    type: 'message',\n    content: content,\n    chatId: msg.telegram.chatId,\n   \n}\n\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1436,7 +1436,7 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "statusCode",
-        "func": "if (msg.statusCode == 200) {\n    msg.payload = {\n        type: 'voice',\n        content: msg.payload,\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n} else {\n    const error = global.get('botCredential').error;\n    msg.payload = {\n        type: 'message',\n        content: error,\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n}\n",
+        "func": "if (msg.statusCode == 200) {\n    msg.payload = {\n        type: 'voice',\n        content: msg.payload,\n        chatId: msg.userData.chatId,\n        \n    }\n\n    return msg;\n} else {\n    const error = global.get('botCredential').error;\n    msg.payload = {\n        type: 'message',\n        content: error,\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1637,7 +1637,7 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "statusCode",
-        "func": "if (msg.statusCode == 201) {\n    msg.clip = msg.payload;\n    msg.payload = {\n        type: 'message',\n        content: 'The video is being processed, you need to wait a bit...',\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n} else {\n    const error = global.get('botCredential').error;\n    msg.payload = {\n        type: 'message',\n        content: error,\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n}",
+        "func": "if (msg.statusCode == 201) {\n    msg.clip = msg.payload;\n    msg.payload = {\n        type: 'message',\n        content: 'The video is being processed, you need to wait a bit...',\n        chatId: msg.userData.chatId,\n        \n    }\n\n    return msg;\n} else {\n    const error = global.get('botCredential').error;\n    msg.payload = {\n        type: 'message',\n        content: error,\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1802,7 +1802,7 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "secondMessage",
-        "func": "\n   const message = `How can I assist you, ${msg.telegram.from.first_name} ?`;\n    \n   \n        msg.payload = {\n            type: 'message',\n            content: message,\n            chatId: msg.telegram.chatId,\n        }\n\n\nreturn msg;",
+        "func": "\n   const message = `How can I assist you, ${msg.telegram.from.first_name} ?`;\n    \n   \n        msg.payload = {\n            type: 'message',\n            content: message,\n            chatId: msg.telegram.chatId,\n           \n        }\n\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1836,7 +1836,7 @@
         "z": "e02fb78e674d1e65",
         "name": "",
         "pauseType": "delay",
-        "timeout": "2",
+        "timeout": "1",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -1901,7 +1901,7 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "setupOpenAiReguest",
-        "func": "msg.payload = {\n    type: 'message',\n    content: msg.payload.choices[0].message.content,\n    chatId: msg.userData.chatId\n}\nreturn msg;",
+        "func": "msg.payload = {\n    type: 'message',\n    content: msg.payload.choices[0].message.content,\n    chatId: msg.userData.chatId,\n    \n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1963,7 +1963,7 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "sendVideoToTelegram",
-        "func": "if (msg.payload.status == 'done') {\n    msg.url = `https://api.telegram.org/bot${global.get('botCredential').botToken}/sendVideo`;\n    msg.headers = {\n        \"content-type\": \"application/json\"\n    }\n    msg.payload = {\n        video: `${msg.payload.result_url}/videos?filename=videoresponse&bred=s`,\n        \n        chat_id: JSON.parse(msg.payload.user_data),\n        \n        type: 'video_note'\n    }\n   \n\n    return [msg, null]\n} else {\n    const error = global.get('botCredential').error;\n    msg.payload = {\n        type: 'message',\n        content: error,\n        chatId: JSON.parse(msg.payload.user_data)\n    }\n\n    return [null, msg]\n}\n",
+        "func": "if (msg.payload.status == 'done') {\n    msg.url = `https://api.telegram.org/bot${global.get('botCredential').botToken}/sendVideo`;\n    msg.headers = {\n        \"content-type\": \"application/json\"\n    }\n    msg.payload = {\n        video: `${msg.payload.result_url}/videos?filename=videoresponse&bred=s`,\n        chat_id: JSON.parse(msg.payload.user_data),\n        type: 'video_note'\n    }\n   \n\n    return [msg, null]\n} else {\n    const error = global.get('botCredential').error;\n    msg.payload = {\n        type: 'message',\n        content: error,\n        chatId: JSON.parse(msg.payload.user_data)\n    }\n\n    return [null, msg]\n}\n",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -2087,35 +2087,6 @@
         ]
     },
     {
-        "id": "8b9eb7df43129a08",
-        "type": "inject",
-        "z": "e02fb78e674d1e65",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 240,
-        "y": 800,
-        "wires": [
-            [
-                "d41469a92ec47721"
-            ]
-        ]
-    },
-    {
         "id": "0b93be538d48a46e",
         "type": "telegram sender",
         "z": "e02fb78e674d1e65",
@@ -2134,7 +2105,7 @@
         "type": "function",
         "z": "e02fb78e674d1e65",
         "name": "statusCode",
-        "func": "if (msg.statusCode == 200) {\n    return null;\n} else {\n    const error = global.get('botCredential').error;\n    msg.payload = {\n        type: 'message',\n        content: error,\n        chatId: msg.userData.chatId\n    }\n\n    return msg;\n}\n",
+        "func": "if (msg.statusCode == 200) {\n    return null;\n} else {\n    const error = global.get('botCredential').error;\n    msg.payload = {\n        type: 'message',\n        content: error,\n        chatId: msg.userData.chatId,\n        \n    }\n\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2145,6 +2116,94 @@
         "wires": [
             [
                 "0b93be538d48a46e"
+            ]
+        ]
+    },
+    {
+        "id": "de324d6e67f2f26b",
+        "type": "telegram receiver",
+        "z": "e02fb78e674d1e65",
+        "name": "",
+        "bot": "1ddc99a249e7e0da",
+        "saveDataDir": "",
+        "filterCommands": true,
+        "x": 100,
+        "y": 600,
+        "wires": [
+            [
+                "a7becf6c928c3dc8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "073d730c70fda5f5",
+        "type": "telegram sender",
+        "z": "e02fb78e674d1e65",
+        "name": "",
+        "bot": "1ddc99a249e7e0da",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 860,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e524f83963acea6e",
+        "type": "function",
+        "z": "e02fb78e674d1e65",
+        "name": "sendingChatAction",
+        "func": "// (see https://core.telegram.org/bots/api#sendchataction)\nmsg.userData = {\n    ...msg.payload[0],\n    chatId: msg.telegram.chatId,\n}\n\nif (msg.userData.communicationMethod == null ||\n    msg.userData.communicationMethod == undefined) {\n\n   return [msg, null];\n}\n\nlet type = msg.userData.communicationMethod;\nmsg.payload = {type: \"action\",\n    chatId: msg.telegram.chatId}\n\nswitch (type) {\n    case \"TEXT\":\n        msg.payload.content = \"typing\";\n        break;\n\n    case \"VIDEO\":\n        msg.payload.content = \"upload_video\";\n        break;\n\n    case \"VOICE\":\n        msg.payload.content = \"upload_audio\";\n        break;\n\n   \n    default:\n        msg = null;\n        break;\n}\nreturn [null, msg];\n",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 600,
+        "wires": [
+            [],
+            [
+                "073d730c70fda5f5"
+            ]
+        ]
+    },
+    {
+        "id": "a7becf6c928c3dc8",
+        "type": "function",
+        "z": "e02fb78e674d1e65",
+        "name": "getUserLastData",
+        "func": "msg.collection = 'chatUsers';\nmsg.telegram = msg.payload;\n\nmsg.payload = {\n    userId: msg.payload.chatId,\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 600,
+        "wires": [
+            [
+                "7bfeb944eaa76d32"
+            ]
+        ]
+    },
+    {
+        "id": "7bfeb944eaa76d32",
+        "type": "link call",
+        "z": "e02fb78e674d1e65",
+        "name": "",
+        "links": [
+            "2ea4d611b4476b64"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 470,
+        "y": 600,
+        "wires": [
+            [
+                "e524f83963acea6e"
             ]
         ]
     },
